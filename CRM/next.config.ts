@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Server actions default to a 1MB body cap, which rejected nearly every
+  // photo/PDF upload. 4mb stays under Vercel's 4.5MB function payload limit —
+  // upload-client.ts shrinks larger images before they're sent.
+  experimental: {
+    serverActions: { bodySizeLimit: "4mb" },
+  },
+
   // Prisma's client is generated to a custom path (src/generated/prisma
   // instead of node_modules/.prisma) - Next.js's serverless file tracer
   // doesn't discover that query-engine binary automatically, which throws

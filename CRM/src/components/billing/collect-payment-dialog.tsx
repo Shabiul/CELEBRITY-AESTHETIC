@@ -23,7 +23,7 @@ import { Badge } from "@/components/ui/badge"
 import { formatCurrency } from "@/lib/format"
 import { collectPayment, getPatientAdvanceBalance } from "@/actions/payments"
 import { addDocument } from "@/actions/patients"
-import { uploadFile } from "@/actions/upload"
+import { uploadFile } from "@/lib/upload-client"
 import { compressImageClientSide } from "@/lib/client-image-compress"
 
 type PaymentMethodType = "CASH" | "UPI" | "CARD" | "NET_BANKING" | "ADVANCE"
