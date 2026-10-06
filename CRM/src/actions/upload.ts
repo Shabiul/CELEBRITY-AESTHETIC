@@ -5,11 +5,9 @@ import path from "path"
 import { nanoid } from "nanoid"
 import { put } from "@vercel/blob"
 import sharp from "sharp"
-import { createClient } from "@supabase/supabase-js"
 
 const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads")
-const SUPABASE_BUCKET = "uploads"
-const MAX_SIZE_BYTES = 4 * 1024 * 1024
+const MAX_SIZE_BYTES = 10 * 1024 * 1024
 // Target band for compressed images — see compressImageIfNeeded.
 const TARGET_MAX_BYTES = 300 * 1024
 
@@ -62,7 +60,7 @@ export async function uploadFile(formData: FormData) {
     throw new Error("No file provided")
   }
   if (file.size > MAX_SIZE_BYTES) {
-    throw new Error("File exceeds the 4MB upload limit")
+    throw new Error("File exceeds 10MB limit")
   }
 
   const originalExt = path.extname(file.name) || ""
@@ -91,28 +89,7 @@ export async function uploadFile(formData: FormData) {
     }
   }
 
-  // 2. Supabase Storage — Vercel's filesystem is read-only, so the disk fallback below only works locally
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY
-  if (process.env.SUPABASE_URL && supabaseKey) {
-    const storage = createClient(process.env.SUPABASE_URL, supabaseKey).storage
-    const upload = () => storage.from(SUPABASE_BUCKET).upload(safeName, buffer, { contentType, cacheControl: "31536000" })
-    let { error } = await upload()
-    if (error) {
-      // First upload on a fresh project: bucket doesn't exist yet
-      await storage.createBucket(SUPABASE_BUCKET, { public: true })
-      ;({ error } = await upload())
-    }
-    if (!error) {
-      return {
-        url: storage.from(SUPABASE_BUCKET).getPublicUrl(safeName).data.publicUrl,
-        name: file.name,
-        type: contentType,
-      }
-    }
-    console.warn("[upload] Supabase Storage upload failed, falling back to local disk:", error)
-  }
-
-  // 3. Local disk fallback
+  // 2. Local disk fallback
   await mkdir(UPLOAD_DIR, { recursive: true })
   await writeFile(path.join(UPLOAD_DIR, safeName), buffer)
 

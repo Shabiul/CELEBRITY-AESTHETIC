@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { uploadFile } from "@/lib/upload-client"
+import { uploadFile } from "@/actions/upload"
 import { addTreatmentPhoto, deleteTreatmentPhoto, type getPatientTreatmentPhotos } from "@/actions/treatment-photos"
 import { formatDateTime } from "@/lib/format"
 

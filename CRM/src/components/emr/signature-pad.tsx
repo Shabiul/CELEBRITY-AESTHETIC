@@ -3,7 +3,7 @@
 import { useRef, useState } from "react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
-import { uploadFile } from "@/lib/upload-client"
+import { uploadFile } from "@/actions/upload"
 
 export function SignaturePad({
   onSave,

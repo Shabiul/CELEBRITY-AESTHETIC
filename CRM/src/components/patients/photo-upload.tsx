@@ -5,7 +5,7 @@ import { Loader2, Upload, User } from "lucide-react"
 import { toast } from "sonner"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { uploadFile } from "@/lib/upload-client"
+import { uploadFile } from "@/actions/upload"
 import { compressImageClientSide } from "@/lib/client-image-compress"
 
 export function PhotoUpload({

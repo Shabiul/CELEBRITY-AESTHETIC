@@ -20,7 +20,7 @@ import { DeleteButton } from "@/components/shared/delete-button"
 import { formatDateTime } from "@/lib/format"
 import { documentCategoryLabels } from "@/lib/labels"
 import { addDocument, deleteDocument } from "@/actions/patients"
-import { uploadFile } from "@/lib/upload-client"
+import { uploadFile } from "@/actions/upload"
 import { compressImageClientSide } from "@/lib/client-image-compress"
 import type { getPatientById } from "@/actions/patients"
 

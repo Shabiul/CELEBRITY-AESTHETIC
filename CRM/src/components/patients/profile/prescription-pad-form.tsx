@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { createPrescription, createScannedPrescription } from "@/actions/patients"
-import { uploadFile } from "@/lib/upload-client"
+import { uploadFile } from "@/actions/upload"
 import { addDocument } from "@/actions/patients"
 import { logMessage } from "@/actions/crm"
 import { getDoctorSignature } from "@/actions/signature"

@@ -21,7 +21,7 @@ import { MedicinePicker } from "@/components/billing/medicine-picker"
 import { formatCurrency } from "@/lib/format"
 import { createBill } from "@/actions/billing"
 import { getPatientInsurances, addDocument } from "@/actions/patients"
-import { uploadFile } from "@/lib/upload-client"
+import { uploadFile } from "@/actions/upload"
 import { compressImageClientSide } from "@/lib/client-image-compress"
 
 type Service = { id: string; name: string; price: unknown }
